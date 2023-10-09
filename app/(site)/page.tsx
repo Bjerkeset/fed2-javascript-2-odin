@@ -15,7 +15,7 @@ export default async function Home() {
 
   return (
     <section>
-      <h1 className="text-4xl">Supabase</h1>
+      <h1 className="text-4xl">Homepage</h1>
       <AuthButtonServer />
       <pre> {JSON.stringify(posts, null, 2)} </pre>
     </section>
