@@ -1,4 +1,5 @@
 "use client";
+import {Button} from "@/components/ui/button";
 import {
   Session,
   createClientComponentClient,
@@ -22,8 +23,8 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
     router.refresh();
   };
   return session ? (
-    <button onClick={handleSignOut}>Sign Out</button>
+    <Button onClick={handleSignOut}>Sign Out</Button>
   ) : (
-    <button onClick={handleSignIn}>Sign in</button>
+    <Button onClick={handleSignIn}>Sign in</Button>
   );
 }
