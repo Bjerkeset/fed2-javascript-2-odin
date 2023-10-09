@@ -9,11 +9,12 @@ import {
   ImageIcon,
   SunIcon,
   TwitterLogoIcon,
+  GitHubLogoIcon,
 } from "@radix-ui/react-icons";
 import {ModeToggle} from "@/components/ui/ModeToggle";
 
 function Topbar() {
-  const twitterUrl = "https://twitter.com";
+  const githubUrl = "https://github.com/Bjerkeset/fed2-javascript-2-odin";
   const discordUrl = "https://discord.com";
 
   return (
@@ -21,16 +22,16 @@ function Topbar() {
       {/* Left side logo*/}
       <Link href="/" className="flex items-center gap-4">
         <Image src="/favicon.ico" alt="logo" width={28} height={28} />
-        <p className="text-heading3-bold text-primary max-xs:hidden">Apiary</p>
+        <p className="text-heading3-bold text-primary max-xs:hidden">Swetter</p>
       </Link>
       {/* Right side links and Mode Toggle */}
       <div className="flex items-center gap-1">
-        <Link href={twitterUrl} rel="noopener noreferrer" target="_blank">
+        <Link href={githubUrl} rel="noopener noreferrer" target="_blank">
           <Button variant="ghost" size="icon">
-            <TwitterLogoIcon className="h-[1.2rem] w-[1.2rem]" />
+            <GitHubLogoIcon className="h-[1.2rem] w-[1.2rem]" />
           </Button>
         </Link>
-        <Link
+        {/* <Link
           href={discordUrl}
           rel="noopener noreferrer"
           target="_blank"
@@ -39,7 +40,7 @@ function Topbar() {
           <Button variant="ghost" size="icon">
             <DiscordLogoIcon className="h-[1.2rem] w-[1.2rem]" />
           </Button>
-        </Link>
+        </Link> */}
         <ModeToggle />
       </div>
     </nav>
