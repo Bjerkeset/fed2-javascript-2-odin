@@ -10,25 +10,28 @@ export const sidebarLinks = [
   },
   {
     Component: LayoutDashboard,
-    route: "/dashboard",
-    label: "Dashboard",
+    route: "/test",
+    label: "Freinds",
   },
   {
     Component: FilePlus2,
-    route: "/create-contract",
-    label: "Create Contract",
+    route: "/test",
+    label: "Create Post",
   },
   {
     Component: User,
     route: "/profile",
     label: "Profile",
   },
-  {
-    Component: PlaneLanding,
-    route: "/welcome",
-    label: "Landing page",
-  },
 ];
+
+// export const logoutButton = [
+//   {
+//     Component: PlaneLanding,
+//     route: "/",
+//     label: "Logout",
+//   },
+// ];
 
 export const profileTabs = [
   {value: "threads", label: "Threads", icon: "/assets/reply.svg"},
