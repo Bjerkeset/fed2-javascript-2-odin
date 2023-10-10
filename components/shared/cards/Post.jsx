@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   CardContent,
@@ -8,10 +9,21 @@ import {
 } from "@/components/ui/card";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import Comment from "@/components/shared/cards/Comment";
-
 import {MessageSquarePlus, Heart, Eye} from "lucide-react";
+import {useEffect} from "react";
+import {fetchAllPosts, fetchAllPostsWithProfiles} from "@/constants/db/index";
+import {useState} from "react";
 
 export default function Post() {
+  const [posts, setPosts] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchAllPostsWithProfiles()
+      .then((data) => setPosts(data))
+      .catch((err) => setError(err));
+  }, []);
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-3">

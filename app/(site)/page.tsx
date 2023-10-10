@@ -5,6 +5,7 @@ import ProfileList from "@/components/shared/cards/ProfileList";
 import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
 import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
+import {fetchAllPosts} from "@/constants/db/index";
 
 export default async function Home() {
   const supabase = createServerComponentClient({cookies});
@@ -16,17 +17,7 @@ export default async function Home() {
 
   const {data: posts} = await supabase.from("posts").select("*, profiles(*)");
 
-  fetch("/api/posts", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      post: "hello world",
-    }),
-  });	
-
-  fetch("/api/profules", {
+  // fetchAllPosts();
 
   return (
     <section className="flex flex-col items-center max-w-3xl">
