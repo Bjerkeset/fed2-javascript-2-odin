@@ -42,7 +42,6 @@ function ProfileList() {
     ],
   };
 
-  console.log("userData: ", userData.users);
   return (
     <section className="flex flex-col w-full items-center md:w-fit">
       <ScrollArea className="h-[500px] border-none sm:w-[250px] w-[290px] rounded-md flex flex-col  border ">
