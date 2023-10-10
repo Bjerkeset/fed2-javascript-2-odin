@@ -20,7 +20,7 @@ export const sidebarLinks = [
   },
   {
     Component: User,
-    route: "/profile",
+    route: "/profile/1",
     label: "Profile",
   },
 ];
