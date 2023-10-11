@@ -25,7 +25,7 @@ export default async function Home() {
       <div>
         <AuthButtonServer />
       </div>
-      <pre> {JSON.stringify(posts, null, 2)} </pre>
+      {/* <pre> {JSON.stringify(posts, null, 2)} </pre> */}
       <Feed />
     </section>
   );
