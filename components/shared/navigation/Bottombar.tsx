@@ -2,6 +2,15 @@
 import {sidebarLinks} from "@/constants";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import RightSidebarSheet from "./RightSidebarSheet";
 
 function Bottombar() {
   const pathname = usePathname();
@@ -27,6 +36,7 @@ function Bottombar() {
             </Link>
           );
         })}
+        <RightSidebarSheet />
       </div>
     </section>
   );

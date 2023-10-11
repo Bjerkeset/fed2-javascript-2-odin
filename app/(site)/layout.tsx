@@ -6,6 +6,7 @@ import Topbar from "@/components/shared/navigation/Topbar";
 import ConditionallyRenderLeftSidebar from "@/components/shared/navigation/ConditionallyRenderLeftSidebar";
 import ConditionallyRenderRightSidebar from "@/components/shared/navigation/ConditionallyRenderRightSidebar";
 import Bottombar from "@/components/shared/navigation/Bottombar";
+import RightSidebar from "@/components/shared/navigation/RightSidebar";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
@@ -28,7 +29,6 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           <main className="flex flex-row">
             <ConditionallyRenderLeftSidebar />
             <section className="main-container">{children}</section>
-            {/* <RightSidebar /> */}
             <ConditionallyRenderRightSidebar />
           </main>
           <Bottombar />

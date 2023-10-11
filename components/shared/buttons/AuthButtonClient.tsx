@@ -1,4 +1,5 @@
 "use client";
+import {Button} from "@/components/ui/button";
 import {
   Session,
   createClientComponentClient,
@@ -9,21 +10,23 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
   console.log("session", session);
   const router = useRouter();
   const supabase = createClientComponentClient();
+
   const handleSignIn = async () => {
-    await supabase.auth.signInWithOAuth({
+    const signinFunc = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
         redirectTo: "http://localhost:3000/api/auth/callback",
       },
     });
+    console.log("sign in function:", signinFunc);
   };
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    router.refresh();
+    // router.refresh();
   };
   return session ? (
-    <button onClick={handleSignOut}>Sign Out</button>
+    <Button onClick={handleSignOut}>Sign Out</Button>
   ) : (
-    <button onClick={handleSignIn}>Sign in</button>
+    <Button onClick={handleSignIn}>Sign in</Button>
   );
 }
