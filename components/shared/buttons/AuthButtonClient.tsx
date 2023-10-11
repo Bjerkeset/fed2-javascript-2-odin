@@ -1,4 +1,5 @@
 "use client";
+import {useEffect} from "react"; // Add this import
 import {Button} from "@/components/ui/button";
 import {
   Session,
@@ -11,6 +12,17 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
   const router = useRouter();
   const supabase = createClientComponentClient();
 
+  useEffect(() => {
+    if (session) {
+      localStorage.setItem(
+        "supabase.auth.token",
+        JSON.stringify(session.access_token)
+      );
+    } else {
+      localStorage.removeItem("supabase.auth.token");
+    }
+  }, [session]);
+
   const handleSignIn = async () => {
     const signinFunc = await supabase.auth.signInWithOAuth({
       provider: "github",
@@ -20,10 +32,12 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
     });
     console.log("sign in function:", signinFunc);
   };
+
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     // router.refresh();
   };
+
   return session ? (
     <Button onClick={handleSignOut}>Sign Out</Button>
   ) : (

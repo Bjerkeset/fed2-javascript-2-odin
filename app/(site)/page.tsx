@@ -8,19 +8,19 @@ import {redirect} from "next/navigation";
 import {fetchAllPosts} from "@/constants/db/index";
 
 export default async function Home() {
-  const supabase = createServerComponentClient({cookies});
-  const {data: session} = await supabase.auth.getSession();
+  // const supabase = createServerComponentClient({cookies});
+  // const {data: session} = await supabase.auth.getSession();
 
   // if (!session || session === null) {
   //   redirect("/login");
   // }
 
-  const {data: posts} = await supabase.from("posts").select("*, profiles(*)");
+  // const {data: posts} = await supabase.from("posts").select("*, profiles(*)");
 
   // fetchAllPosts();
 
   return (
-    <section className="flex flex-col items-center max-w-3xl">
+    <section className="flex flex-col items-center w-full max-w-7xl">
       <NewPostForm />
       <div>
         <AuthButtonServer />

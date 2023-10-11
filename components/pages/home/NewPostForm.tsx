@@ -16,6 +16,8 @@ import {Input} from "@/components/ui/input";
 import {Card, CardContent} from "@/components/ui/card";
 import {Textarea} from "@/components/ui/textarea";
 import {onSubmit} from "@/constants/submitHandler";
+import {useEffect, useState} from "react";
+import {fetchCurrentUser, insertNewPostInDB} from "@/constants/db";
 
 const formSchema = z.object({
   post: z.string().min(2, {
@@ -24,6 +26,9 @@ const formSchema = z.object({
 });
 
 export default function NewPostForm() {
+  const [profile, setProfile] = useState<any | null>(null);
+  const [content, setContent] = useState<any | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,34 +36,60 @@ export default function NewPostForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+
+    const sessionData = JSON.parse(
+      localStorage.getItem("supabase.auth.token") || "{}"
+    ); // Default to an empty object
+    const sessionToken = sessionData;
+
+    console.log("fetchedProfile", sessionToken);
+
+    if (sessionToken) {
+      // This checks both for null and for undefined
+      try {
+        const fetchedProfile = await fetchCurrentUser(sessionToken);
+        setProfile(fetchedProfile);
+
+        if (fetchedProfile?.id) {
+          const postedContent = await insertNewPostInDB(
+            fetchedProfile.id,
+            values.post
+          );
+          setContent(postedContent);
+        } else {
+          console.log("No profile found");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    } else {
+      console.log("No session token found");
+    }
   }
+
   return (
-    <Card className="w-full flex">
-      <CardContent className="w-full">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="post"
-              render={({field}) => (
-                <FormItem>
-                  <FormLabel>Post</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="shadcn" {...field} />
-                  </FormControl>
-                  <FormDescription>This is your post</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="center">
-              Submit
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1 w-full">
+        <FormField
+          control={form.control}
+          name="post"
+          render={({field}) => (
+            <FormItem className="flex flex-col items-center">
+              <FormLabel className="text-3xl">Share Your Thoughts</FormLabel>
+              <FormMessage />
+              <FormControl>
+                <Textarea placeholder="..." {...field} />
+              </FormControl>
+              {/* <FormDescription>This is your post</FormDescription> */}
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full">
+          Post It!
+        </Button>
+      </form>
+    </Form>
   );
 }
