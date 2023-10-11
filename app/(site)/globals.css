@@ -78,7 +78,7 @@
 @layer components {
   /* main */
   .post-card_icon {
-    @apply max-md:w-5 hover:text-foreground;
+    @apply max-md:w-3 w-5 hover:text-foreground;
   }
   .main-container {
     @apply flex min-h-screen flex-1 flex-col items-center bg-background px-6 pb-10 pt-28 max-md:pb-32 sm:px-10;

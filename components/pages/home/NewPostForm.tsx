@@ -32,9 +32,7 @@ export default function NewPostForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    "use server";
     console.log(values);
-    const supabase = createServerActionClient({cookies});
   }
   return (
     <Card className="w-full flex">
