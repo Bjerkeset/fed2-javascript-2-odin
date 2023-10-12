@@ -19,7 +19,7 @@ export default async function Home() {
   // fetchAllPosts();
 
   return (
-    <section className="flex flex-col items-center w-full max-w-7xl">
+    <section className="flex flex-col items-center w-full max-w-xl">
       <NewPostForm />
       <div>
         <AuthButtonServer />

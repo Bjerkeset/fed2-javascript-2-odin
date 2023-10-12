@@ -36,7 +36,7 @@ function ProfileList() {
           >
             <div className="w-full flex justify-between items-center text-center mb-auto">
               <div className="flex items-center gap-1">
-                <Avatar className="bg-secondary h-8 w-8">
+                <Avatar className="bg-secondary md:h-8 md:w-8 h-6 w-6">
                   <AvatarImage src={user.meta.avatar_url} />
                 </Avatar>
                 <p className="text-sm">{user.meta.user_name}</p>

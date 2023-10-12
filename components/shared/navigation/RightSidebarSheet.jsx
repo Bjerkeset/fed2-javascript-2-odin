@@ -19,9 +19,9 @@ export default function RightSidebarSheet() {
           {"people".split(/\s+/)[0]}
         </p>
       </SheetTrigger>
-      <SheetContent className="flex flex-col items-center">
+      <SheetContent className=" md:w-3/4 w-full flex flex-col items-center">
         <SheetHeader>
-          <SheetTitle>Friend List</SheetTitle>
+          <SheetTitle>People</SheetTitle>
           <SheetDescription>
             <ProfileList />
           </SheetDescription>
