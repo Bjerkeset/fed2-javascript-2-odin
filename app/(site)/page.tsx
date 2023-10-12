@@ -8,9 +8,8 @@ import {redirect} from "next/navigation";
 import {fetchAllPosts} from "@/lib/db/index";
 
 export default async function Home() {
-  // const supabase = createServerComponentClient({cookies});
-  // const {data: session} = await supabase.auth.getSession();
-
+  const supabase = createServerComponentClient({ cookies });
+  const { data: session } = await supabase.auth.getSession();
   // if (!session || session === null) {
   //   redirect("/login");
   // }
