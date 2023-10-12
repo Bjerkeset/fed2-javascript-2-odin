@@ -22,7 +22,7 @@ const LoginForm = () => {
   const [isSubmitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
 
-  const passwordPattern = /^(?=.*[A-Z])/; // At least one capital letter
+  const passwordPattern = /^(?=.*[A-Z])/; 
 
   const handleSubmit = async (data) => {
     if (!passwordPattern.test(data.password)) {
@@ -55,7 +55,7 @@ const LoginForm = () => {
             <div>
               <p>You are now registered!</p>
               <Link
-                href={"/profile"}
+                href={"/profile/${user_id}"}
                 className="font-semibold text-decoration: underline"
               >
                 go to profile
