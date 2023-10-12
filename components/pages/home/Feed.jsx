@@ -23,10 +23,12 @@ export default function Feed() {
         setPosts(post);
       } catch (err) {
         setError(err);
+      }finally {
+        setIsLoading(false);
       }
     })();
   }, []);
-  if (!isLoading)
+  if (isLoading)
     return (
       <div className="flex flex-wrap justify-center items-center gap-6 mt-6">
         <SkeletonUi />
