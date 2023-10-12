@@ -37,35 +37,22 @@ export default function NewPostForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    try {
+      const fetchedProfile = await fetchCurrentUser();
+      setProfile(fetchedProfile);
+      console.log("fetchedProfile", fetchedProfile);
 
-    const sessionData = JSON.parse(
-      localStorage.getItem("supabase.auth.token") || "{}"
-    ); // Default to an empty object
-    const sessionToken = sessionData;
-
-    console.log("fetchedProfile", sessionToken);
-
-    if (sessionToken) {
-      // This checks both for null and for undefined
-      try {
-        const fetchedProfile = await fetchCurrentUser(sessionToken);
-        setProfile(fetchedProfile);
-
-        if (fetchedProfile?.id) {
-          const postedContent = await insertNewPostInDB(
-            fetchedProfile.id,
-            values.post
-          );
-          setContent(postedContent);
-        } else {
-          console.log("No profile found");
-        }
-      } catch (error) {
-        console.error("Error:", error);
+      if (fetchedProfile?.id) {
+        const postedContent = await insertNewPostInDB(
+          fetchedProfile.id,
+          values.post
+        );
+        setContent(postedContent);
+      } else {
+        console.log("No profile found");
       }
-    } else {
-      console.log("No session token found");
+    } catch (error) {
+      console.error("Error:", error);
     }
   }
 
@@ -77,10 +64,12 @@ export default function NewPostForm() {
           name="post"
           render={({field}) => (
             <FormItem className="flex flex-col items-center">
-              <FormLabel className="text-3xl">Share Your Thoughts</FormLabel>
+              <FormLabel className="text-2xl sm:text-3xl">
+                Share Your Thoughts
+              </FormLabel>
               <FormMessage />
               <FormControl>
-                <Textarea placeholder="..." {...field} />
+                <Textarea {...field} />
               </FormControl>
               {/* <FormDescription>This is your post</FormDescription> */}
             </FormItem>
