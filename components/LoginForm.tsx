@@ -40,7 +40,7 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
 
   const passwordPattern = /^(?=.*[A-Z])/;
-
+  const passwordPattern = /^(?=.*[A-Z])/; 
   const handleSubmit = async (data) => {
     if (!passwordPattern.test(data.password)) {
       setError("Password must contain at least one capital letter.");
