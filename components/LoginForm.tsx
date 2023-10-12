@@ -110,7 +110,7 @@ const LoginForm = () => {
                       />
                     </FormControl>
                     <FormDescription className="text-gray-600 text-xs italic">
-                      Password must contain at least one capital letter.
+                      Password needs to contain at least one capital letter.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
