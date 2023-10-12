@@ -112,3 +112,103 @@ export async function fetchProfileById(profileId) {
     return null;
   }
 }
+
+export async function insertNewPostInDB(user_id, contentValue) {
+  const SUPABASE_ENDPOINT =
+    "https://meockkiebvkkepdfntbz.supabase.co/rest/v1/posts";
+
+  try {
+    const response = await fetch(SUPABASE_ENDPOINT, {
+      method: "POST",
+      headers: {
+        apiKey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({
+        // title: titleValue,
+        user_id: user_id,
+        content: contentValue,
+      }),
+    });
+
+    if (!response.ok) {
+      const responseBody = await response.json();
+      console.error("Server response:", responseBody);
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+
+    console.log("insertNewPostInDB>>>", response);
+    return true;
+  } catch (error) {
+    console.error(
+      "There was a problem with the insert operation:",
+      error.message
+    );
+    return false;
+  }
+}
+
+export async function fetchCurrentUser(token) {
+  const SUPABASE_ENDPOINT =
+    "https://meockkiebvkkepdfntbz.supabase.co/auth/v1/user";
+
+  try {
+    const response = await fetch(SUPABASE_ENDPOINT, {
+      method: "GET",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    console.log("fetchCurrentUser>>>", data);
+    return data;
+  } catch (error) {
+    console.error(
+      "There was a problem fetching the current user:",
+      error.message
+    );
+    return null;
+  }
+}
+
+export async function deleteMatchingRows(postId) {
+  console.log("Attempting to delete post with ID:", postId);
+
+  const SUPABASE_ENDPOINT =
+    "https://meockkiebvkkepdfntbz.supabase.co/rest/v1/posts";
+  const url = `${SUPABASE_ENDPOINT}?id=eq.${postId}`;
+  console.log("URL:", url);
+
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+      },
+    });
+
+    if (!response.ok) {
+      const responseBody = await response.json();
+      console.error("Server response:", responseBody);
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+
+    console.log(`Rows with id=${postId} have been deleted.`);
+
+    return true;
+  } catch (error) {
+    console.error(
+      "There was a problem with the delete operation:",
+      error.message
+    );
+    return false;
+  }
+}

@@ -3,24 +3,22 @@ import {useEffect, useState} from "react";
 import {
   fetchAllPostsWithProfiles,
   fetchProfileById,
+  insertNewPostInDB,
+  fetchCurrentUser,
 } from "@/constants/db/index";
 import Post from "@/components/shared/cards/Post";
 
 export default function Feed() {
   const [posts, setPosts] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [content, setContent] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     (async () => {
       try {
-        const fetchedPosts = await fetchAllPostsWithProfiles();
-        setPosts(fetchedPosts);
-
-        const fetchedProfile = await fetchProfileById(
-          "363b0e8b-315c-4822-9630-7f84a6e57c45"
-        );
-        setProfile(fetchedProfile);
+        const post = await fetchAllPostsWithProfiles();
+        setPosts(post);
       } catch (err) {
         setError(err);
       }
@@ -30,11 +28,10 @@ export default function Feed() {
   if (!posts) return <div>Loading...</div>;
 
   return (
-    <article>
+    <article className="flex flex-col gap-2 w-full max-w-xl">
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
-      {/* Optionally render the profile data somewhere */}
     </article>
   );
 }
