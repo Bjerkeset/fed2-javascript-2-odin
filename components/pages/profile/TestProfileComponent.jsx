@@ -1,35 +1,46 @@
 "use client";
-import {useEffect, useState} from "react";
-import {fetchAllPostsWithProfiles, fetchProfileById} from "@/lib/db/index";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-
-export default function ProfileComponent() {
-  const [profile, setProfile] = useState([]);
-  const [error, setError] = useState(null);
+  const [isError, setIsError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    const profileId = window.location.pathname.substring(
+      window.location.pathname.lastIndexOf("/") + 1
+    );
     const fetchUserProfile = async () => {
       try {
-        const profileId = window.location.pathname.substring(
           window.location.pathname.lastIndexOf("/") + 1
         );
         const getSingleProfile = await fetchProfileById(profileId);
-        console.log("ProfileId: " + profileId);
-        console.log("testing", getSingleProfile);
-        setProfile(getSingleProfile); // Update profile state
+        const getAllProfile = await fetchAllPostsWithProfiles(profileId);
+
+        // console.log("testing", getSingleProfile);
+        setProfile(getSingleProfile);
+        setGetAllProfile(getAllProfile);
+
+        // console.log(">>>>>getAllProfile", getAllProfile);
       } catch (err) {
-        setError(err);
+        setIsError(err);
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchUserProfile(); // Call the async function
+    fetchUserProfile();
   }, []);
+
+  if (isLoading)
+    return (
+      <div>
+        <SkeletonUi />
+      </div>
+    );
+
+  if (isError) {
+    return (
+      <span>
+        Error: There was a problem with the fetch operation: {isError?.message}
+      </span>
+    );
+  }
 
   return (
     <>
@@ -55,6 +66,7 @@ export default function ProfileComponent() {
 
                   <div className="flex">
                     <ul className="flex p-2.5 gap-2">
+                      <li className="cursor-pointer list-none p-4">
                       <li className="list-none p-4">
                         <svg
                           width="30"
@@ -87,6 +99,7 @@ export default function ProfileComponent() {
                           ></path>
                         </svg>
                       </li>
+                      <li className="cursor-pointer list-none p-4">
                       <li className="list-none p-4">
                         <svg
                           width="30"
