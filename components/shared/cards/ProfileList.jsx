@@ -10,7 +10,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Button} from "@/components/ui/button";
 import {AiOutlineMessage} from "react-icons/ai";
 import {CgProfile} from "react-icons/cg";
-import {fetchAllProfiles} from "@/constants/db/index";
+import {fetchAllProfiles} from "@/lib/db/index";
 import Link from "next/link";
 
 function ProfileList() {
@@ -45,7 +45,7 @@ function ProfileList() {
                 <Button variant={"outline"} className=" h-8 rounded-full">
                   <AiOutlineMessage className="absolute" />
                 </Button>
-                <Link href={user.id}>
+                <Link href={`/profile/${user.id}`}>
                   <Button className="rounded-full h-8">
                     <CgProfile className="absolute " />
                   </Button>

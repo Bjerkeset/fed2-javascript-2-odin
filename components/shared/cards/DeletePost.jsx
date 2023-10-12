@@ -10,7 +10,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import {Trash2} from "lucide-react";
-import {deleteMatchingRows} from "@/constants/db/index";
+import {deleteMatchingRows} from "@/lib/db/index";
 
 export default function DeletePost({postId}) {
   const handleDelete = async () => {

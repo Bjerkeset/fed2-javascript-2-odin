@@ -5,7 +5,7 @@ import {
   fetchProfileById,
   insertNewPostInDB,
   fetchCurrentUser,
-} from "@/constants/db/index";
+} from "@/lib/db/index";
 import Post from "@/components/shared/cards/Post";
 
 export default function Feed() {

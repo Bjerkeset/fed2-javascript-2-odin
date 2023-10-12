@@ -17,7 +17,7 @@ import {Card, CardContent} from "@/components/ui/card";
 import {Textarea} from "@/components/ui/textarea";
 import {onSubmit} from "@/constants/submitHandler";
 import {useEffect, useState} from "react";
-import {fetchCurrentUser, insertNewPostInDB} from "@/constants/db";
+import {fetchCurrentUser, insertNewPostInDB} from "@/lib/db";
 
 const formSchema = z.object({
   post: z.string().min(2, {
