@@ -19,8 +19,8 @@ export default function DeletePost({postId}) {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
-        <Trash2 className="post-card_icon text-red-900" />
+      <AlertDialogTrigger className="text-left px-1 hover:bg-destructive rounded py-2">
+        Delete
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -34,7 +34,7 @@ export default function DeletePost({postId}) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

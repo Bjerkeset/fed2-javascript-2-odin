@@ -8,7 +8,7 @@ import {
 import {useRouter} from "next/navigation";
 
 export default function AuthButtonClient({session}: {session: Session | null}) {
-  console.log("session", session);
+  // console.log("session", session);
   const router = useRouter();
   const supabase = createClientComponentClient();
 

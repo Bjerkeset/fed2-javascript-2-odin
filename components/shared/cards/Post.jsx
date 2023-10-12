@@ -7,16 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-import DeletePost from "./DeletePost";
-
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import Comment from "@/components/shared/cards/Comment";
 import {MessageSquarePlus, Heart, Eye, Trash2} from "lucide-react";
 import Link from "next/link";
+import PostSettings from "@/components/shared/cards/PostSettings";
 
 export default function Post({post}) {
-  // console.log( );
   const isUserCreatorOfPost = true;
   const doesCommentsExist = false;
   return (
@@ -39,26 +36,25 @@ export default function Post({post}) {
           </Avatar>
           <CardTitle>{post.profiles.meta.user_name || "Username"}</CardTitle>
         </Link>
-
         <CardDescription className="ml-auto">
           {new Date(post.created_at).toLocaleString()}
         </CardDescription>
+        <div>
+          {isUserCreatorOfPost ? (
+            <PostSettings postId={post.id} currentContent={post.content} />
+          ) : null}
+        </div>
       </CardHeader>
       <CardContent>
         <p>{post.content || "Default content here."}</p>
       </CardContent>
       <CardFooter className="flex flex-col">
-        <div className="flex w-full">
+        <div className="flex w-3/4">
           <p className="flex flex-row justify-around w-full text-muted-foreground">
             <MessageSquarePlus className="post-card_icon" />
             <Heart className="post-card_icon" />
             <Eye className="post-card_icon" />
           </p>
-          {isUserCreatorOfPost ? (
-            <div className="flex w-1/4 justify-center">
-              <DeletePost postId={post.id} />
-            </div>
-          ) : null}
         </div>
         {doesCommentsExist ? <Comment /> : null}
       </CardFooter>
