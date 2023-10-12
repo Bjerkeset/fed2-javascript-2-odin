@@ -5,7 +5,7 @@ import ProfileList from "@/components/shared/cards/ProfileList";
 import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
 import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
-import {fetchAllPosts} from "@/constants/db/index";
+import {fetchAllPosts} from "@/lib/db/index";
 
 export default async function Home() {
   // const supabase = createServerComponentClient({cookies});

@@ -11,7 +11,7 @@ export const sidebarLinks = [
   {
     Component: LayoutDashboard,
     route: "/test",
-    label: "Freinds",
+    label: "People",
   },
   {
     Component: FilePlus2,
