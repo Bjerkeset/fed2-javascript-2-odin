@@ -5,11 +5,11 @@ import ProfileList from "@/components/shared/cards/ProfileList";
 import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
 import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
-import {fetchAllPosts} from "@/constants/db/index";
+import {fetchAllPosts} from "@/lib/db/index";
 
 export default async function Home() {
-  const supabase = createServerComponentClient({ cookies });
-  const { data: session } = await supabase.auth.getSession();
+  const supabase = createServerComponentClient({cookies});
+  const {data: session} = await supabase.auth.getSession();
   // if (!session || session === null) {
   //   redirect("/login");
   // }
@@ -19,7 +19,7 @@ export default async function Home() {
   // fetchAllPosts();
 
   return (
-    <section className="flex flex-col items-center w-full max-w-7xl">
+    <section className="flex flex-col items-center w-full max-w-xl">
       <NewPostForm />
       <div>
         <AuthButtonServer />

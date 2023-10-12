@@ -1,23 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
-import {
-  fetchAllPostsWithProfiles,
-  fetchProfileById,
-} from "@/constants/db/index";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import SkeletonUi from "../profile/skeletonUi";
-
-export default function ProfileComponent() {
-  const [profile, setProfile] = useState([]);
-  const [getAllProfile, setGetAllProfile] = useState([]);
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -26,6 +8,8 @@ export default function ProfileComponent() {
     );
     const fetchUserProfile = async () => {
       try {
+          window.location.pathname.lastIndexOf("/") + 1
+        );
         const getSingleProfile = await fetchProfileById(profileId);
         const getAllProfile = await fetchAllPostsWithProfiles(profileId);
 
@@ -83,6 +67,7 @@ export default function ProfileComponent() {
                   <div className="flex">
                     <ul className="flex p-2.5 gap-2">
                       <li className="cursor-pointer list-none p-4">
+                      <li className="list-none p-4">
                         <svg
                           width="30"
                           height="30"
@@ -98,7 +83,7 @@ export default function ProfileComponent() {
                           ></path>
                         </svg>
                       </li>
-                      <li className="cursor-pointer list-none p-4">
+                      <li className="list-none p-4">
                         <svg
                           width="30"
                           height="30"
@@ -115,6 +100,7 @@ export default function ProfileComponent() {
                         </svg>
                       </li>
                       <li className="cursor-pointer list-none p-4">
+                      <li className="list-none p-4">
                         <svg
                           width="30"
                           height="30"

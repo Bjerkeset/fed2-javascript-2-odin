@@ -5,9 +5,17 @@ import {
   fetchProfileById,
   insertNewPostInDB,
   fetchCurrentUser,
-} from "@/constants/db/index";
+  fetchCurrentUser2,
+} from "@/lib/db/index";
 import Post from "@/components/shared/cards/Post";
 import SkeletonUi from "../profile/skeletonUi";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Feed() {
   const [posts, setPosts] = useState(null);
@@ -15,6 +23,7 @@ export default function Feed() {
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState(null);
   const [error, setError] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -45,5 +54,43 @@ export default function Feed() {
         <Post key={post.id} post={post} />
       ))}
     </article>
+        // Reverse the array to show the latest post on top.
+
+        setPosts(post.reverse());
+        const user = await fetchCurrentUser();
+        setCurrentUser(user);
+
+        console.log("post: ", post);
+        console.log("Current user: ", user);
+      } catch (error) {
+        setError(error);
+      }
+    })();
+  }, []);
+
+  if (!posts || !currentUser) return <div>Loading...</div>;
+
+  return (
+    <>
+      <article className="flex flex-col gap-2 w-full ">
+        {posts.map((post) => (
+          <Dialog key={post.id}>
+            <DialogTrigger>
+              <Post
+                post={post}
+                isAuthorOfPost={post.user_id === currentUser.id}
+              />
+            </DialogTrigger>
+            <DialogContent>
+              <Post
+                post={post}
+                isAuthorOfPost={post.user_id === currentUser.id}
+                isExpanded={true}
+              />
+            </DialogContent>
+          </Dialog>
+        ))}
+      </article>
+    </>
   );
 }

@@ -1,28 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, {useState} from "react";
 
-import { FormProvider } from "react-hook-form";
+import {FormProvider} from "react-hook-form";
 
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 
-import { FormField } from "@/components/ui/form";
+import {FormField} from "@/components/ui/form";
 
-import { FormItem } from "@/components/ui/form";
+import {FormItem} from "@/components/ui/form";
 
-import { FormLabel } from "@/components/ui/form";
+import {FormLabel} from "@/components/ui/form";
 
-import { FormControl } from "@/components/ui/form";
+import {FormControl} from "@/components/ui/form";
 
-import { FormDescription } from "@/components/ui/form";
+import {FormDescription} from "@/components/ui/form";
 
-import { FormMessage } from "@/components/ui/form";
+import {FormMessage} from "@/components/ui/form";
 
-import { Input } from "./ui/input";
+import {Input} from "./ui/input";
 
-import { Button } from "./ui/button";
+import {Button} from "./ui/button";
 
-import { createClient } from "@supabase/supabase-js";
+import {createClient} from "@supabase/supabase-js";
 
 import Link from "next/link";
 
@@ -39,8 +39,8 @@ const LoginForm = () => {
 
   const [error, setError] = useState(null);
 
+  // const passwordPattern = /^(?=.*[A-Z])/;
   const passwordPattern = /^(?=.*[A-Z])/;
-  const passwordPattern = /^(?=.*[A-Z])/; 
   const handleSubmit = async (data) => {
     if (!passwordPattern.test(data.password)) {
       setError("Password must contain at least one capital letter.");
@@ -49,7 +49,7 @@ const LoginForm = () => {
     }
 
     try {
-      const { data: insertedData, error } = await supabase
+      const {data: insertedData, error} = await supabase
 
         .from("users")
 
@@ -96,7 +96,7 @@ const LoginForm = () => {
               <FormField
                 control={form.control}
                 name="username"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem className="mb-4">
                     <FormLabel className="block text-gray-700 text-sm font-bold mb-2">
                       Username
@@ -123,7 +123,7 @@ const LoginForm = () => {
               <FormField
                 control={form.control}
                 name="password"
-                render={({ field }) => (
+                render={({field}) => (
                   <FormItem className="mb-4">
                     <FormLabel className="block text-gray-700 text-sm font-bold mb-2">
                       Password
