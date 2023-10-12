@@ -1,7 +1,6 @@
 "use client";
 import * as z from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
 import {Button} from "@/components/ui/button";
 import {
   Form,
@@ -18,6 +17,7 @@ import {Textarea} from "@/components/ui/textarea";
 import {onSubmit} from "@/constants/submitHandler";
 import {useEffect, useState} from "react";
 import {fetchCurrentUser, insertNewPostInDB} from "@/lib/db";
+import {useForm} from "react-hook-form";
 
 const formSchema = z.object({
   post: z.string().min(2, {
