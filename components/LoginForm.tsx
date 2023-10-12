@@ -58,7 +58,7 @@ const LoginForm = () => {
                 href={"/profile/${user_id}"}
                 className="font-semibold text-decoration: underline"
               >
-                go to profile
+                go to your profile
               </Link>
             </div>
           ) : (
