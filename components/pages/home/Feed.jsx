@@ -1,27 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
-import {
-  fetchAllPostsWithProfiles,
-  fetchProfileById,
-  insertNewPostInDB,
-  fetchCurrentUser,
-  fetchCurrentUser2,
-} from "@/lib/db/index";
+import React, { useEffect, useState } from "react";
+import { fetchAllPostsWithProfiles, fetchCurrentUser } from "@/lib/db/index";
 import Post from "@/components/shared/cards/Post";
 import SkeletonUi from "../profile/skeletonUi";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
-export default function Feed() {
+export default function Feed({ currentUserId }) {
   const [posts, setPosts] = useState(null);
-  const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [content, setContent] = useState(null);
   const [error, setError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -29,15 +15,18 @@ export default function Feed() {
     (async () => {
       try {
         const post = await fetchAllPostsWithProfiles();
-        setPosts(post);
+        setPosts(post.reverse());
+        const user = await fetchCurrentUser();
+        setCurrentUser(user);
       } catch (err) {
         setError(err);
-      }finally {
+      } finally {
         setIsLoading(false);
       }
     })();
   }, []);
-  if (isLoading)
+
+  if (isLoading) {
     return (
       <div className="flex flex-wrap justify-center items-center gap-6 mt-6">
         <SkeletonUi />
@@ -46,51 +35,35 @@ export default function Feed() {
         <SkeletonUi />
       </div>
     );
-  // if (!posts) return <div>Loading...</div>;
+  }
+
+  if (!posts || !currentUser) {
+    return <div>Loading...</div>;
+  }
+
+  const filteredPosts = currentUserId
+    ? posts.filter((post) => post.user_id === currentUserId)
+    : posts;
 
   return (
-    <article className="flex flex-col gap-2 w-full max-w-xl">
-      {posts?.map((post) => (
-        <Post key={post.id} post={post} />
+    <article className="flex flex-col gap-2 w-full ">
+      {filteredPosts.map((post) => (
+        <Dialog key={post.id}>
+          <DialogTrigger>
+            <Post
+              post={post}
+              isAuthorOfPost={post.user_id === currentUser.id}
+            />
+          </DialogTrigger>
+          <DialogContent>
+            <Post
+              post={post}
+              isAuthorOfPost={post.user_id === currentUser.id}
+              isExpanded={true}
+            />
+          </DialogContent>
+        </Dialog>
       ))}
     </article>
-        // Reverse the array to show the latest post on top.
-
-        setPosts(post.reverse());
-        const user = await fetchCurrentUser();
-        setCurrentUser(user);
-
-        console.log("post: ", post);
-        console.log("Current user: ", user);
-      } catch (error) {
-        setError(error);
-      }
-    })();
-  }, []);
-
-  if (!posts || !currentUser) return <div>Loading...</div>;
-
-  return (
-    <>
-      <article className="flex flex-col gap-2 w-full ">
-        {posts.map((post) => (
-          <Dialog key={post.id}>
-            <DialogTrigger>
-              <Post
-                post={post}
-                isAuthorOfPost={post.user_id === currentUser.id}
-              />
-            </DialogTrigger>
-            <DialogContent>
-              <Post
-                post={post}
-                isAuthorOfPost={post.user_id === currentUser.id}
-                isExpanded={true}
-              />
-            </DialogContent>
-          </Dialog>
-        ))}
-      </article>
-    </>
   );
 }
