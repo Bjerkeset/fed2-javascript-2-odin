@@ -32,6 +32,7 @@ import {ArrowRight} from "lucide-react";
 import {useToast} from "@/components/ui/use-toast";
 import {motion} from "framer-motion";
 import {Toaster} from "@/components/ui/toaster";
+import {signUpUser} from "@/lib/db";
 
 type Input = z.infer<typeof RegisterSchema>;
 
@@ -42,7 +43,6 @@ export default function RegisterForm() {
   const form = useForm<Input>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      name: "",
       username: "",
       email: "",
       password: "",
@@ -52,7 +52,7 @@ export default function RegisterForm() {
 
   //   console.log(form.watch());
 
-  function onSubmit(data: Input) {
+  async function onSubmit(data: Input) {
     if (data.comfirmPassword !== data.password) {
       toast({
         title: "Passwords do not match",
@@ -60,11 +60,37 @@ export default function RegisterForm() {
       });
       return;
     }
-    toast({
-      title: "Success!!!",
-      variant: "default",
-    });
-    console.log("success!!", data);
+
+    // Destructuring the form data.
+    const {email, password, username} = data;
+
+    // Calling signUpUser function.
+    try {
+      const response = await signUpUser(email, password, username);
+
+      // Handle the response as necessary. For example:
+      if (response) {
+        toast({
+          title: "Registration Successful!",
+          variant: "default",
+        });
+        console.log("User registration successful:", response);
+      } else {
+        toast({
+          title: "Registration Failed!",
+          description: response.msg,
+          variant: "destructive",
+        });
+        console.log("User registration failed.");
+      }
+    } catch (error: any) {
+      toast({
+        title: "An error occurred during registration.",
+        description: error.message,
+        variant: "destructive",
+      });
+      console.error("Error during registration:", error.message);
+    }
   }
 
   return (
@@ -99,7 +125,7 @@ export default function RegisterForm() {
                   }}
                 >
                   {/* Name */}
-                  <FormField
+                  {/* <FormField
                     control={form.control}
                     name="name"
                     render={({field}) => (
@@ -112,7 +138,7 @@ export default function RegisterForm() {
                         <FormMessage />
                       </FormItem>
                     )}
-                  />
+                  /> */}
                   {/* username */}
                   <FormField
                     control={form.control}
@@ -219,15 +245,15 @@ export default function RegisterForm() {
                     variant={"outline"}
                     onClick={() => {
                       // validate form before going to next step
-                      form.trigger(["email", "name", "username"]);
+                      form.trigger(["email", "username"]);
                       const emailState = form.getFieldState("email");
-                      const nameState = form.getFieldState("name");
+                      // const nameState = form.getFieldState("name");
                       const usernameState = form.getFieldState("username");
 
                       if (!emailState.isDirty || emailState.invalid) return;
                       if (!usernameState.isDirty || usernameState.invalid)
                         return;
-                      if (!nameState.isDirty || nameState.invalid) return;
+                      // if (!nameState.isDirty || nameState.invalid) return;
                       setFormStep(1);
                     }}
                   >

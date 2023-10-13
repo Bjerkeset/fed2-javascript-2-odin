@@ -8,7 +8,7 @@ export default function ConditionallyRenderRightSidebar() {
   return (
     <>
       {/* Conditionally render LeftSidebar */}
-      {pathname !== "/welcome" && <RightSidebar />}
+      {pathname !== "/register" && <RightSidebar />}
     </>
   );
 }
