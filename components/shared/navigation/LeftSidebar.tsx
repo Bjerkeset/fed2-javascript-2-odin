@@ -5,10 +5,24 @@ import Image from "next/image";
 import {usePathname, useRouter} from "next/navigation";
 import {Button} from "@/components/ui/button";
 import RightSidebarSheet from "./RightSidebarSheet";
+import AuthButtonClient from "../buttons/AuthButtonClient";
+import AuthButtonServer from "../buttons/AuthButtonServer";
+import {
+  Session,
+  createClientComponentClient,
+  // createServerComponentClient,
+} from "@supabase/auth-helpers-nextjs";
+import {cookies} from "next/headers";
 
 function LeftSidebar() {
   const router = useRouter();
   const pathname = usePathname();
+  // const supabase = createClientComponentClient();
+  // const {
+  //   data: {session},
+  // } = await supabase.auth.getSession();
+
+  if (pathname === "/register") return null;
 
   return (
     <section className="custom-scrollbar leftsidebar">
@@ -36,17 +50,8 @@ function LeftSidebar() {
       </div>
       <div className="mt-10 px-6">
         <p>TODO: Replace me</p>
-        <Button>
-          <div className="flex cursor-pointer gap-4 p-4">
-            {/* <Image
-              src="/assets/logout.svg"
-              alt="logout"
-              width={24}
-              height={24}
-            /> */}
-            <p className="text-light-2 max-lg-hidden">Logout</p>
-          </div>
-        </Button>
+        {/* <AuthButtonClient session={null} /> */}
+        {/* <AuthButtonServer /> */}
       </div>
     </section>
   );

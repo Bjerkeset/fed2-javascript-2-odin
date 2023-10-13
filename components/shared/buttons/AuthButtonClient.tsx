@@ -5,12 +5,13 @@ import {
   Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
-import {useRouter} from "next/navigation";
+import {useRouter, usePathname} from "next/navigation";
 
 export default function AuthButtonClient({session}: {session: Session | null}) {
   // console.log("session", session);
   const router = useRouter();
   const supabase = createClientComponentClient();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (session) {
@@ -35,12 +36,24 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    // router.refresh();
+    router.push("/register");
   };
 
+  // if (pathname === "/register") return null;
+
   return session ? (
-    <Button onClick={handleSignOut}>Sign Out</Button>
+    <Button
+      className="absolute right-2 top-16 z-20 md:bottom-14 md:left-10 mt-2 w-28"
+      onClick={handleSignOut}
+    >
+      Sign Out
+    </Button>
   ) : (
-    <Button onClick={handleSignIn}>Sign in</Button>
+    <Button
+      className="absolute right-2 top-16 z-20 md:bottom-14 md:left-10 mt-2 w-28"
+      onClick={handleSignIn}
+    >
+      Sign in
+    </Button>
   );
 }
