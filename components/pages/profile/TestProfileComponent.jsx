@@ -29,7 +29,6 @@ export default function ProfileComponent() {
     );
 
     const fetchUserProfile = async () => {
-
       try {
         const currentUser = await fetchCurrentUser();
         setCurrentUserId(currentUser.id); // Set currentUserId here
