@@ -7,24 +7,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Comment from "@/components/shared/cards/Comment";
-import {MessageSquarePlus, Heart, Eye, Trash2} from "lucide-react";
+import { MessageSquarePlus, Heart, Eye, Trash2 } from "lucide-react";
 import Link from "next/link";
 import PostSettings from "@/components/shared/cards/PostSettings";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
-export default function Post({post, isExpanded = false, isAuthorOfPost}) {
+export default function Post({ post, isExpanded = false, isAuthorOfPost }) {
   function timeAgo(date) {
     const seconds = Math.floor((new Date() - date) / 1000);
 
     const intervals = [
-      {label: "year", seconds: 31536000},
-      {label: "month", seconds: 2592000},
-      {label: "week", seconds: 604800},
-      {label: "day", seconds: 86400},
-      {label: "hour", seconds: 3600},
-      {label: "minute", seconds: 60},
+      { label: "year", seconds: 31536000 },
+      { label: "month", seconds: 2592000 },
+      { label: "week", seconds: 604800 },
+      { label: "day", seconds: 86400 },
+      { label: "hour", seconds: 3600 },
+      { label: "minute", seconds: 60 },
     ];
 
     for (let interval of intervals) {
