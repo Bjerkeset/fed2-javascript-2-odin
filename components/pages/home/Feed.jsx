@@ -1,11 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { fetchAllPostsWithProfiles, fetchCurrentUser } from "@/lib/db/index";
+import React, {useEffect, useState} from "react";
+import {fetchAllPostsWithProfiles, fetchCurrentUser} from "@/lib/db/index";
 import Post from "@/components/shared/cards/Post";
 import SkeletonUi from "../profile/skeletonUi";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
+import {useToast} from "@/components/ui/use-toast";
 
-export default function Feed({ currentUserId }) {
+export default function Feed({profileId, currentUserId}) {
+  const {toast} = useToast();
   const [posts, setPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,8 +20,13 @@ export default function Feed({ currentUserId }) {
         setPosts(post.reverse());
         const user = await fetchCurrentUser();
         setCurrentUser(user);
-      } catch (err) {
-        setError(err);
+      } catch (error) {
+        toast({
+          title: "Error fetching user or post",
+          description: error.message,
+          variant: "destructive",
+        });
+        setError(error);
       } finally {
         setIsLoading(false);
       }
@@ -41,9 +48,17 @@ export default function Feed({ currentUserId }) {
     return <div>Loading...</div>;
   }
 
-  const filteredPosts = currentUserId
-    ? posts.filter((post) => post.user_id === currentUserId)
-    : posts;
+  const getFilteredPosts = () => {
+    if (profileId === 1) {
+      return posts.filter((post) => post.user_id === currentUserId);
+    }
+    if (typeof profileId === "string" && profileId.length > 5) {
+      return posts.filter((post) => post.user_id === profileId);
+    }
+    return posts;
+  };
+
+  const filteredPosts = getFilteredPosts();
 
   return (
     <article className="flex flex-col gap-2 w-full ">

@@ -7,6 +7,7 @@ import ConditionallyRenderLeftSidebar from "@/components/shared/navigation/Condi
 import ConditionallyRenderRightSidebar from "@/components/shared/navigation/ConditionallyRenderRightSidebar";
 import Bottombar from "@/components/shared/navigation/Bottombar";
 import RightSidebar from "@/components/shared/navigation/RightSidebar";
+import {Toaster} from "@/components/ui/toaster";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -26,6 +27,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           disableTransitionOnChange
         >
           <Topbar />
+          <Toaster />
           <main className="flex flex-row">
             <ConditionallyRenderLeftSidebar />
             <section className="main-container">{children}</section>
