@@ -49,10 +49,17 @@ function LeftSidebar() {
         <RightSidebarSheet />
       </div>
       <div className="mt-10 px-6">
-        <p>TODO: Replace me</p>
-        {/* <AuthButtonClient session={null} /> */}
-        {/* <AuthButtonServer /> */}
-      </div>
+        <Button>
+          <div className="flex cursor-pointer gap-4 p-4">
+            {/* <Image
+              src="/assets/logout.svg"
+              alt="logout"
+              width={24}
+              height={24}
+            /> */}
+            <p className="text-light-2 max-lg-hidden">Logout</p>
+          </div>
+        </Button>
     </section>
   );
 }

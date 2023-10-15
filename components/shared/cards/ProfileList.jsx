@@ -1,20 +1,22 @@
 "use client";
 import React from "react";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 // import {useAllUsers} from "@/lib/my-api";
 // import UserContext from "@/lib/userContext";
-import {Skeleton} from "@/components/ui/skeleton";
-import {ScrollArea} from "@/components/ui/scroll-area";
-import {Card, CardContent} from "@/components/ui/card";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {Button} from "@/components/ui/button";
-import {AiOutlineMessage} from "react-icons/ai";
-import {CgProfile} from "react-icons/cg";
-import {fetchAllProfiles} from "@/lib/db/index";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { AiOutlineMessage } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { fetchAllProfiles } from "@/lib/db/index";
 import Link from "next/link";
+import ProfileSkeletonUi from "@/components/ui/profileSkeletonUi";
 
 function ProfileList() {
   const [users, setUsers] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     (async () => {
       try {
@@ -22,9 +24,23 @@ function ProfileList() {
         setUsers(users);
       } catch (err) {
         setError(err);
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-2 justify-start m-2">
+        <ProfileSkeletonUi />
+        <ProfileSkeletonUi />
+        <ProfileSkeletonUi />
+        <ProfileSkeletonUi />
+        <ProfileSkeletonUi />
+      </div>
+    );
+  }
 
   return (
     <section className="flex flex-col w-full items-center md:w-fit">
