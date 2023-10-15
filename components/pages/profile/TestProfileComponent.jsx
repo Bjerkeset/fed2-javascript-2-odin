@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import {
   fetchAllPostsWithProfiles,
   fetchProfileById,
@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import SkeletonUi from "../profile/skeletonUi";
 import Feed from "../home/Feed";
 
@@ -22,11 +22,13 @@ export default function ProfileComponent() {
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState(null); // Declare currentUserId here
+  const [profileId, setProfileId] = useState(null); // Declare profileId here
 
   useEffect(() => {
     const profileId = window.location.pathname.substring(
       window.location.pathname.lastIndexOf("/") + 1
     );
+    setProfileId(profileId);
 
     const fetchUserProfile = async () => {
       try {
@@ -164,7 +166,7 @@ export default function ProfileComponent() {
           </Card>
         ))}
       </div>
-      <Feed currentUserId={currentUserId} />
+      <Feed currentUserId={currentUserId} profileId={profileId} />
     </>
   );
 }
