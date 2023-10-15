@@ -35,7 +35,6 @@ function LeftSidebar() {
         <RightSidebarSheet />
       </div>
       <div className="mt-10 px-6">
-        <p>TODO: Replace me</p>
         <Button>
           <div className="flex cursor-pointer gap-4 p-4">
             {/* <Image
