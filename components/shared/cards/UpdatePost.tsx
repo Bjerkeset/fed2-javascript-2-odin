@@ -26,6 +26,9 @@ import {Input} from "@/components/ui/input";
 import {useForm} from "react-hook-form";
 import {Textarea} from "@/components/ui/textarea";
 import {updateMatchingRows} from "@/lib/db/index";
+import {RefreshContext} from "@/lib/RefreshContext";
+import {useContext} from "react";
+import {useToast} from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   post: z.string().min(2, {
@@ -39,6 +42,8 @@ type UpdatePostProps = {
 };
 
 export default function UpdatePost({postId, currentContent}: UpdatePostProps) {
+  const {setRefreshKey} = useContext(RefreshContext);
+  const {toast} = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,11 +54,21 @@ export default function UpdatePost({postId, currentContent}: UpdatePostProps) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
 
-    const updatedPost = await updateMatchingRows(postId, values.post);
-    if (updatedPost) {
-      // Handle successful update (e.g., show a success toast).
-    } else {
-      // Handle unsuccessful update (e.g., show an error toast).
+    try {
+      const updatedPost = await updateMatchingRows(postId, values.post);
+      if (updatedPost) {
+        // Handle successful update (e.g., show a success toast).
+      } else {
+        // Handle unsuccessful update (e.g., show an error toast).
+      }
+    } catch {
+      console.error("Error updating post");
+    } finally {
+      setRefreshKey((prevKey: number) => prevKey + 1);
+      toast({
+        title: "success",
+        description: "you just updated the post.",
+      });
     }
   }
   return (

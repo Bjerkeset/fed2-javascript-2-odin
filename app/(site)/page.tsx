@@ -5,14 +5,17 @@ import ProfileList from "@/components/shared/cards/ProfileList";
 import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
 import {redirect} from "next/navigation";
 import {fetchAllPosts} from "@/lib/db/index";
+import {RefreshProvider} from "@/lib/RefreshContext";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
   return (
-    <section className="flex flex-col items-center w-full max-w-xl">
-      <NewPostForm />
-      <Feed currentUserId={null} profileId={null} />
-    </section>
+    <RefreshProvider>
+      <section className="flex flex-col items-center w-full max-w-xl">
+        <NewPostForm />
+        <Feed currentUserId={null} profileId={null} />
+      </section>
+    </RefreshProvider>
   );
 }

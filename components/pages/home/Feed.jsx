@@ -1,18 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { fetchAllPostsWithProfiles, fetchCurrentUser } from "@/lib/db/index";
+import React, {useEffect, useState} from "react";
+import {fetchAllPostsWithProfiles, fetchCurrentUser} from "@/lib/db/index";
 import Post from "@/components/shared/cards/Post";
 import SkeletonUi from "../profile/skeletonUi";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { useToast } from "@/components/ui/use-toast";
+import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
+import {useToast} from "@/components/ui/use-toast";
+import {RefreshContext} from "@/lib/RefreshContext";
+import {useContext} from "react";
 
-export default function Feed({ profileId, currentUserId }) {
-  const { toast } = useToast();
+export default function Feed({profileId, currentUserId}) {
+  const {toast} = useToast();
   const [posts, setPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const {refreshKey} = useContext(RefreshContext);
 
   useEffect(() => {
     (async () => {
@@ -32,7 +35,7 @@ export default function Feed({ profileId, currentUserId }) {
         setIsLoading(false);
       }
     })();
-  }, []);
+  }, [refreshKey]);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -63,14 +66,14 @@ export default function Feed({ profileId, currentUserId }) {
   if (!posts || !currentUser) {
     return (
       <div className="flex flex-wrap justify-center items-center gap-6 mt-6">
-        <span className=" flex w-full justify-center items-center border-2 h-[100px]  text-md text-center p-2">Please Sign in / Register to make or view a post</span>
+        <span className=" flex w-full justify-center items-center border-2 h-[100px]  text-md text-center p-2">
+          Please Sign in / Register to make or view a post
+        </span>
         <SkeletonUi />
         <SkeletonUi />
       </div>
     );
   }
-
-  
 
   const getFilteredPosts = () => {
     if (profileId === 1) {
