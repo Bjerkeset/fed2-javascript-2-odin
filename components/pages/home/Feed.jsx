@@ -1,13 +1,13 @@
 "use client";
-import React, {useEffect, useState} from "react";
-import {fetchAllPostsWithProfiles, fetchCurrentUser} from "@/lib/db/index";
+import React, { useEffect, useState } from "react";
+import { fetchAllPostsWithProfiles, fetchCurrentUser } from "@/lib/db/index";
 import Post from "@/components/shared/cards/Post";
 import SkeletonUi from "../profile/skeletonUi";
-import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
-import {useToast} from "@/components/ui/use-toast";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 
-export default function Feed({profileId, currentUserId}) {
-  const {toast} = useToast();
+export default function Feed({ profileId, currentUserId }) {
+  const { toast } = useToast();
   const [posts, setPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -49,9 +49,28 @@ export default function Feed({profileId, currentUserId}) {
     );
   }
 
-  if (!posts || !currentUser) {
-    return <div>Loading...</div>;
+  if (error) {
+    return (
+      <div className="w-full">
+        <span className="flex items-center md: justify-center border-red-600  border-2 rounded h-[100px] mt-[100px] text-xl text-red-600 text-center p-2">
+          Error: Failed to fetch posts. Please refresh the page and try again.
+          {error?.message}
+        </span>
+      </div>
+    );
   }
+
+  if (!posts || !currentUser) {
+    return (
+      <div className="flex flex-wrap justify-center items-center gap-6 mt-6">
+        <span className=" flex w-full justify-center items-center border-2 h-[100px]  text-md text-center p-2">Please Sign in / Register to make or view a post</span>
+        <SkeletonUi />
+        <SkeletonUi />
+      </div>
+    );
+  }
+
+  
 
   const getFilteredPosts = () => {
     if (profileId === 1) {
@@ -69,7 +88,7 @@ export default function Feed({profileId, currentUserId}) {
     const contentMatch = (post.content || "")
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
-    const authorMatch = (post.author_name || "")
+    const authorMatch = post.profiles.meta.user_name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
     return contentMatch || authorMatch;

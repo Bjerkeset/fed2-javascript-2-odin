@@ -32,7 +32,25 @@ function LeftSidebar() {
             pathname === link.route;
           const IconComponent = link.Component;
 
-          return (
+        return (
+          <Link key={link.label} href={link.route}>
+            <div
+              className={`leftsidebar_link ${
+                isActive && `bg-secondary`
+              } cursor-pointer flex items-center gap-4`}
+            >
+              <IconComponent className="text-primary self-center w-5 h-5" />
+              <p className="text-foreground max-lg:hidden">{link.label}</p>
+            </div>
+          </Link>
+        );
+      })}
+      <RightSidebarSheet />
+    </div>
+    <div className="mt-10 px-6">
+     
+    </div>
+  </section>
             <Link key={link.label} href={link.route}>
               <div
                 className={`leftsidebar_link ${
@@ -61,7 +79,5 @@ function LeftSidebar() {
         </Button>
       </div>
     </section>
-  );
-}
 
 export default LeftSidebar;

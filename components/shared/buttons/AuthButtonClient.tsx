@@ -44,14 +44,14 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
 
   return session ? (
     <Button
-      className="absolute right-2 top-16 z-20 md:bottom-14 md:left-10 mt-2 w-28"
+      className="fixed right-2 top-16 z-10 md:bottom-14 md:left-10 my-6 w-28 "
       onClick={handleSignOut}
     >
       Sign Out
     </Button>
   ) : (
     <Button
-      className="absolute right-2 top-16 z-20 md:bottom-14 md:left-10 mt-2 w-28"
+      className="fixed right-2 top-16 z-20 md:bottom-14 md:left-10 my-6  w-28"
       onClick={handleSignIn}
     >
       Sign in
