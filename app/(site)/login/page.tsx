@@ -1,3 +1,9 @@
+import React from "react";
+
+export default function page() {
+  return <div>page</div>;
+}
+
 // import LoginForm from "@/components/LoginForm";
 
 // import AuthButtonClient from "@/components/shared/buttons/AuthButtonClient";
