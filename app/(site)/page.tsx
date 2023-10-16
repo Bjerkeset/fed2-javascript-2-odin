@@ -3,9 +3,10 @@ import NewPostForm from "@/components/pages/home/NewPostForm";
 import AuthButtonServer from "@/components/shared/buttons/AuthButtonServer";
 import ProfileList from "@/components/shared/cards/ProfileList";
 import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
-import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
 import {fetchAllPosts} from "@/lib/db/index";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   return (

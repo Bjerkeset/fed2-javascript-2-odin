@@ -28,7 +28,8 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
     const signinFunc = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: "http://localhost:3000/api/auth/callback",
+        redirectTo: `${location.origin}/api/auth/callback`,
+        // redirectTo: "http://localhost:3000/api/auth/callback",
       },
     });
     console.log("sign in function:", signinFunc);

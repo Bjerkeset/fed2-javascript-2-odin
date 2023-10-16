@@ -13,11 +13,11 @@ export const sidebarLinks = [
   //   route: "/test",
   //   label: "People",
   // },
-  {
-    Component: FilePlus2,
-    route: "/test",
-    label: "Create Post",
-  },
+  // {
+  //   Component: FilePlus2,
+  //   route: "/test",
+  //   label: "Create Post",
+  // },
   {
     Component: User,
     route: "/profile/1",
