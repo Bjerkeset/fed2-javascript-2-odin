@@ -1,35 +1,35 @@
-import LoginForm from "@/components/LoginForm";
+// import LoginForm from "@/components/LoginForm";
 
-import AuthButtonClient from "@/components/shared/buttons/AuthButtonClient";
+// import AuthButtonClient from "@/components/shared/buttons/AuthButtonClient";
 
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+// import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
-import React from "react";
+// import React from "react";
 
-export default async function page() {
-  const supabase = createServerComponentClient({ cookies });
+// export default async function page() {
+//   const supabase = createServerComponentClient({ cookies });
 
-  const { data: session } = await supabase.auth.getSession();
+//   const { data: session } = await supabase.auth.getSession();
 
-  {
-    /* {
+//   {
+//     /* {
 
-    if (session) {
+//     if (session) {
 
-      redirect("/test");
+//       redirect("/test");
 
-    } */
-  }
+//     } */
+//   }
 
-  return (
-    <div>
-      <LoginForm />
+//   return (
+//     <div>
+//       <LoginForm />
 
-      {/* <AuthButtonClient session={session}  /> */}
-    </div>
-  );
-}
+//       {/* <AuthButtonClient session={session}  /> */}
+//     </div>
+//   );
+// }
