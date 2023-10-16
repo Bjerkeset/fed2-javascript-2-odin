@@ -46,20 +46,14 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
   };
 
   // Define your different button pairs
-  const registerButtons = session ? (
-    <>
-      <Button className="mt-20" onClick={handleSignOut}>
-        Logout
-      </Button>
-    </>
-  ) : (
+  const registerButtons = !session ? (
     <div className="w-full flex flex-col items-center">
       <p>Sign-In with GitHub</p>
       <Button className="w-full" onClick={handleSignIn}>
         <GitHubLogoIcon />
       </Button>
     </div>
-  );
+  ) : null;
 
   const defaultButtons = session ? (
     <Button
