@@ -9,6 +9,7 @@ import Bottombar from "@/components/shared/navigation/Bottombar";
 import RightSidebar from "@/components/shared/navigation/RightSidebar";
 import LeftSidebar from "@/components/shared/navigation/LeftSidebar";
 import LeftsidebarWrapper from "@/components/shared/navigation/LeftsidebarWrapper";
+export const dynamic = "force-dynamic";
 
 const inter = Inter({subsets: ["latin"]});
 
