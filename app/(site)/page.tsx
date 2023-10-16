@@ -1,23 +1,19 @@
+import Feed from "@/components/pages/home/Feed";
+import NewPostForm from "@/components/pages/home/NewPostForm";
 import AuthButtonServer from "@/components/shared/buttons/AuthButtonServer";
+import ProfileList from "@/components/shared/cards/ProfileList";
 import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
 import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
+import {fetchAllPosts} from "@/lib/db/index";
 
 export default async function Home() {
-  const supabase = createServerComponentClient({cookies});
-  const {data: session} = await supabase.auth.getSession();
-
-  if (!session || session === null) {
-    redirect("/login");
-  }
-
-  const {data: posts} = await supabase.from("posts").select();
-
   return (
-    <section>
-      <h1 className="text-4xl">Homepage</h1>
-      <AuthButtonServer />
-      <pre> {JSON.stringify(posts, null, 2)} </pre>
+    <section className="flex flex-col items-center w-full max-w-xl">
+      <NewPostForm />
+      <div>{/* <AuthButtonServer /> */}</div>
+      {/* <pre> {JSON.stringify(posts, null, 2)} </pre> */}
+      <Feed currentUserId={null} profileId={null} />
     </section>
   );
 }

@@ -8,11 +8,11 @@ export const sidebarLinks = [
     route: "/",
     label: "Feed",
   },
-  {
-    Component: LayoutDashboard,
-    route: "/test",
-    label: "Freinds",
-  },
+  // {
+  //   Component: LayoutDashboard,
+  //   route: "/test",
+  //   label: "People",
+  // },
   {
     Component: FilePlus2,
     route: "/test",
@@ -20,7 +20,7 @@ export const sidebarLinks = [
   },
   {
     Component: User,
-    route: "/profile",
+    route: "/profile/1",
     label: "Profile",
   },
 ];
