@@ -46,7 +46,7 @@ export default function Page() {
   }
 
   return (
-    <>
+    <RefreshProvider>
       <div>
         <TestProfileComponent />
         <h1>Profile Page</h1>
@@ -58,6 +58,6 @@ export default function Page() {
           </div>
         )}
       </div>
-    </>
+    </RefreshProvider>
   );
 }
