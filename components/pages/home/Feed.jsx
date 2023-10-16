@@ -49,6 +49,16 @@ export default function Feed({profileId, currentUserId}) {
     );
   }
 
+
+  if(!error){
+    return (
+      <div className="w-full">
+        
+        <span className="flex items-center md: justify-center border-red-600  border-2 rounded h-[100px] mt-[100px] text-xl text-red-600 text-center p-2">Error: Failed to fetch posts. Please refresh the page and try again.{error?.message}</span>
+      </div>
+    )
+  }
+
   if (!posts || !currentUser) {
     return <div>Loading...</div>;
   }
