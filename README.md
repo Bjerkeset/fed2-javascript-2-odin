@@ -18,6 +18,13 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Links and Resources
+
+- **Live Demo**: [Fed2 JavaScript Assignment](https://fed2-javascript-2-odin.vercel.app/)
+- **Design Mockup**: [Figma Design](https://www.figma.com/file/d0uJVB1LTmUN6U8Pl2gQja/JS-Assignment-Odin?type=design&node-id=0%3A1&mode=design&t=Aw34f5b7MGT3PNpy-1)
+
+Feel free to explore the live demo and review the design mockup to get a better understanding of the project's UI/UX design and functionality.
+
 # Group Report - Course Assignment JS-2
 
 \*\* By Torjus Nilsen, Bendik Bjerkeset and Krystian Cruz
@@ -36,13 +43,30 @@ The main layout on the page is mostly the same with 3 containers. A left side ba
 
 ## Individual section
 
-## Bendik Bjerkeset
+## Components Developed by Bendik Bjerkeset
 
-[Your section here...]
+### Navigation
+
+- **Responsive Navbar**: Created responsive navigation bar to ensure seamless navigation across different device sizes.
+
+### Home Page
+
+- **Feed Component**: Developed a modular feed component which is prominently featured on both the home page and the user-specific profile page.
+- **Card Component**: Implemented a card component that effectively displays posts retrieved from our backend server.
+- **Post Settings Component**: Integrated a dropdown menu UI from Shadcn, facilitating backend interactions for post deletion and updates.
+- **Create Post Component**: Constructed a form that interfaces with the backend to upload text content as posts.
+
+### Registration Page
+
+- **Sign-Up / Registration Form**: Established a registration form facilitating user sign-up either via GitHub or email. However, as of now, only the GitHub registration method maintains the user session, thus it is recommended for accessing the full functionality of the platform.
+
+### Backend Logic
+
+- **Database Connection**: The platform is wired to a Supabase database. Rather than employing the latest SDK features, a more traditional approach utilizing URL-based fetch requests was adopted to meet the current assignment criteria. All asynchronous fetch functions have been consolidated into a single file within the `lib` directory to maintain a clean and clear import structure.
 
 ### Torjus Nilsen
 
-I have worked on a little bit of everything, mostly on the front-end side of the project. I have worked on styling, design and functionalities.  More specifically I have worked on things such as filter and search functionality. I worked on bug fixing and other smaller implementations to the front-end user experience. 
+I have worked on a little bit of everything, mostly on the front-end side of the project. I have worked on styling, design and functionalities. More specifically I have worked on things such as filter and search functionality. I worked on bug fixing and other smaller implementations to the front-end user experience.
 
 ### Krystian Gere Cruz
 
