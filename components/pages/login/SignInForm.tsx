@@ -67,10 +67,12 @@ export function SignInForm() {
     }
   }
   return (
-    <Card className="w-[300px] md:w-[500px] max-w-screen-md">
+    <Card className="w-[300px] border-none md:w-[500px] max-w-screen-md">
       <CardHeader>
         <CardTitle>Sign In</CardTitle>
-        <CardDescription>Complete form to sign in</CardDescription>
+        <CardDescription className="text-red-500">
+          Email registered users is depricated. Please use GitHub accounts.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -84,9 +86,7 @@ export function SignInForm() {
                   <FormControl>
                     <Input placeholder="email" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
+                  <FormDescription>Enter your email address.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -100,7 +100,7 @@ export function SignInForm() {
                   <FormControl>
                     <Input placeholder="password" {...field} />
                   </FormControl>
-                  <FormDescription>enter your password here.</FormDescription>
+                  <FormDescription>Enter your password here.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

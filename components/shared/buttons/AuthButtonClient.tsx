@@ -6,6 +6,7 @@ import {
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import {useRouter, usePathname, redirect} from "next/navigation";
+import {GitHubLogoIcon} from "@radix-ui/react-icons";
 
 export default function AuthButtonClient({session}: {session: Session | null}) {
   // console.log("session", session);
@@ -41,21 +42,38 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
     router.push("/register");
   };
 
-  // if (pathname === "/register") return null;
+  // Define your different button pairs
+  const registerButtons = session ? (
+    <>
+      <Button className="mt-20" onClick={handleSignOut}>
+        Logout
+      </Button>
+    </>
+  ) : (
+    <div className="w-full flex flex-col items-center">
+      <p>Sign-In with GitHub</p>
+      <Button className="w-full" onClick={handleSignIn}>
+        <GitHubLogoIcon />
+      </Button>
+    </div>
+  );
 
-  return session ? (
+  const defaultButtons = session ? (
     <Button
-      className="fixed right-2 top-16 z-10 md:bottom-14 md:left-10 my-6 w-28 "
+      className="mt-20 right-2 top-16 z-20 md:relative md:self-center absolute my-6 w-28 "
       onClick={handleSignOut}
     >
       Sign Out
     </Button>
   ) : (
     <Button
-      className="fixed right-2 top-16 z-20 md:bottom-14 md:left-10 my-6  w-28"
+      className="fixed right-2 top-16 z-20 md:bottom-14 md:left-10 my-6 w-28"
       onClick={handleSignIn}
     >
       Sign in
     </Button>
   );
+
+  // Conditionally render based on pathname
+  return pathname === "/register" ? registerButtons : defaultButtons;
 }

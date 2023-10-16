@@ -98,11 +98,11 @@ export default function RegisterForm() {
       <Toaster />
       {/* // my style div */}
       <div className="flex justify-center">
-        <Card className="w-[300px] md:w-[500px] max-w-screen-md">
+        <Card className="w-[300px]  border-none md:w-[500px] max-w-screen-md">
           <CardHeader>
             <CardTitle>Register</CardTitle>
-            <CardDescription>
-              Complete register to use application{" "}
+            <CardDescription className="text-red-500">
+              Email register is depricated. Please use GitHub.
             </CardDescription>
           </CardHeader>
           <CardContent>
