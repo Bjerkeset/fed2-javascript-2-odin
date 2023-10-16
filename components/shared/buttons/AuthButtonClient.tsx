@@ -5,7 +5,7 @@ import {
   Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
-import {useRouter, usePathname} from "next/navigation";
+import {useRouter, usePathname, redirect} from "next/navigation";
 
 export default function AuthButtonClient({session}: {session: Session | null}) {
   // console.log("session", session);
@@ -21,6 +21,7 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
       );
     } else {
       localStorage.removeItem("supabase.auth.token");
+      // redirect("/register");
     }
   }, [session]);
 

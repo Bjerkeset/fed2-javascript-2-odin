@@ -12,8 +12,6 @@ export default async function Home() {
   return (
     <section className="flex flex-col items-center w-full max-w-xl">
       <NewPostForm />
-      <div>{/* <AuthButtonServer /> */}</div>
-      {/* <pre> {JSON.stringify(posts, null, 2)} </pre> */}
       <Feed currentUserId={null} profileId={null} />
     </section>
   );
