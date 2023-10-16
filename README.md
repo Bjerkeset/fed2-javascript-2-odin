@@ -42,7 +42,7 @@ The main layout on the page is mostly the same with 3 containers. A left side ba
 
 ### Torjus Nilsen
 
-[Your section here...]
+I have worked on a little bit of everything, mostly on the front-end side of the project. I have worked on styling, design and functionalities.  More specifically I have worked on things such as filter and search functionality. I worked on bug fixing and other smaller implementations to the front-end user experience. 
 
 ### Krystian Gere Cruz
 
