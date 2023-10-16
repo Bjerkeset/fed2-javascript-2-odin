@@ -61,8 +61,16 @@ export default function Feed({ profileId, currentUserId }) {
   }
 
   if (!posts || !currentUser) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-wrap justify-center items-center gap-6 mt-6">
+        <span className=" flex w-full justify-center items-center border-2 h-[100px]  text-md text-center p-2">Please Sign in / Register to make or view a post</span>
+        <SkeletonUi />
+        <SkeletonUi />
+      </div>
+    );
   }
+
+  
 
   const getFilteredPosts = () => {
     if (profileId === 1) {
