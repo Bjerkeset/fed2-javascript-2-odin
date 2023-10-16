@@ -4,10 +4,15 @@ import TestProfileComponent from "@/components/pages/profile/TestProfileComponen
 import SkeletonUi from "../../../../components/pages/profile/skeletonUi";
 import {fetchCurrentUser} from "@/lib/db";
 import {useContext} from "react";
-import {RefreshContext} from "@/lib/RefreshContext";
+import {
+  RefreshProvider,
+  refreshKey,
+  RefreshContext,
+} from "@/lib/RefreshContext";
 
 export default function Page() {
   const {refreshKey, setRefreshKey} = useContext(RefreshContext);
+
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [getCurrentUser, setGetCurrentUser] = useState(); // Changed the initial state to an empty array
@@ -46,18 +51,20 @@ export default function Page() {
   }
 
   return (
-    <RefreshProvider>
-      <div>
-        <TestProfileComponent />
-        <h1>Profile Page</h1>
-        {getCurrentUser && (
-          <div>
-            <p>Name: {getCurrentUser.identities[0].identity_data.name}</p>
-            <p>Email: {getCurrentUser.email}</p>
-            {/* Add more user data as needed */}
-          </div>
-        )}
-      </div>
-    </RefreshProvider>
+    <>
+      <RefreshProvider>
+        <div>
+          <TestProfileComponent />
+          <h1>Profile Page</h1>
+          {getCurrentUser && (
+            <div>
+              <p>Name: {getCurrentUser.identities[0].identity_data.name}</p>
+              <p>Email: {getCurrentUser.email}</p>
+              {/* Add more user data as needed */}
+            </div>
+          )}
+        </div>
+      </RefreshProvider>
+    </>
   );
 }
