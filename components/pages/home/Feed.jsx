@@ -50,7 +50,7 @@ export default function Feed({profileId, currentUserId}) {
   }
 
 
-  if(!error){
+  if(error){
     return (
       <div className="w-full">
         
