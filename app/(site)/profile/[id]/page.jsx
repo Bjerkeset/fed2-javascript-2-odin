@@ -1,10 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import TestProfileComponent from "@/components/pages/profile/TestProfileComponent";
 import SkeletonUi from "../../../../components/pages/profile/skeletonUi";
-import { fetchCurrentUser } from "@/lib/db";
+import {fetchCurrentUser} from "@/lib/db";
+import {useContext} from "react";
+import {RefreshContext} from "@/lib/RefreshContext";
 
 export default function Page() {
+  const {refreshKey, setRefreshKey} = useContext(RefreshContext);
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [getCurrentUser, setGetCurrentUser] = useState(); // Changed the initial state to an empty array
@@ -54,8 +57,6 @@ export default function Page() {
             {/* Add more user data as needed */}
           </div>
         )}
-
-
       </div>
     </>
   );
