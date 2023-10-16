@@ -34,7 +34,7 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
         // redirectTo: "http://localhost:3000/api/auth/callback",
       },
     });
-    console.log("sign in function:", signinFunc);
+    console.log("location>>>", location.origin);
   };
 
   const handleSignOut = async () => {
