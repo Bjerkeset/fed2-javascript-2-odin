@@ -70,7 +70,17 @@ I have worked on a little bit of everything, mostly on the front-end side of the
 
 ### Krystian Gere Cruz
 
-[Your section here...]
+Fetching User Profiles with Posts:
+
+My primary job was to make sure our app could fetch user profiles and the posts associated with them. This meant creating the parts of the app that let users see profiles along with the posts those users had made.
+
+Fetching a Single Profile by ID:
+
+I also set up a system that allows users to view a single profile by entering that user's unique ID. This feature makes it easy for users to get detailed info about a specific user and their posts.
+
+Styling the Profile Page:
+
+On top of the functional stuff, I worked on the looks of our profile page. I used design and layout tricks to make it visually appealing and user-friendly. The goal was to make the page look good and be easy to use.
 
 ### Summary
 
