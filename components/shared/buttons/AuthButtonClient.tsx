@@ -15,9 +15,9 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname === "/" && session === null) {
-      router.push("/register");
-    }
+    // if (pathname === "/" && session === null) {
+    //   router.push("/register");
+    // }
 
     if (session) {
       localStorage.setItem(
@@ -26,7 +26,6 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
       );
     } else {
       localStorage.removeItem("supabase.auth.token");
-      // redirect("/register");
     }
   }, [session]);
 
