@@ -7,6 +7,8 @@ import ConditionallyRenderLeftSidebar from "@/components/shared/navigation/Condi
 import ConditionallyRenderRightSidebar from "@/components/shared/navigation/ConditionallyRenderRightSidebar";
 import Bottombar from "@/components/shared/navigation/Bottombar";
 import RightSidebar from "@/components/shared/navigation/RightSidebar";
+import LeftSidebar from "@/components/shared/navigation/LeftSidebar";
+import LeftsidebarWrapper from "@/components/shared/navigation/LeftsidebarWrapper";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -27,7 +29,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         >
           <Topbar />
           <main className="flex flex-row">
-            <ConditionallyRenderLeftSidebar />
+            <LeftsidebarWrapper />
             <section className="main-container">{children}</section>
             <ConditionallyRenderRightSidebar />
           </main>
