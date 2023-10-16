@@ -1,5 +1,5 @@
 "use client";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import {
   fetchAllPostsWithProfiles,
   fetchProfileById,
@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import SkeletonUi from "../profile/skeletonUi";
 import Feed from "../home/Feed";
 
@@ -65,8 +65,9 @@ export default function ProfileComponent() {
 
   if (isError) {
     return (
-      <span>
-        Error: There was a problem with the fetch operation: {isError?.message}
+      <span className="flex items-center md: justify-center border-red-600  border-2 rounded h-[100px] mt-[100px] text-xl text-red-600 text-center p-2">
+        Error: Failed to fetch profile. Please refresh the page and try again.
+        {isError?.message}
       </span>
     );
   }
