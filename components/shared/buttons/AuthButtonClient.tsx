@@ -5,7 +5,7 @@ import {
   Session,
   createClientComponentClient,
 } from "@supabase/auth-helpers-nextjs";
-import {useRouter, usePathname, redirect} from "next/navigation";
+import {useRouter, usePathname} from "next/navigation";
 import {GitHubLogoIcon} from "@radix-ui/react-icons";
 
 export default function AuthButtonClient({session}: {session: Session | null}) {
@@ -15,6 +15,10 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (pathname === "/" && session === null) {
+      router.push("/register");
+    }
+
     if (session) {
       localStorage.setItem(
         "supabase.auth.token",
@@ -31,7 +35,6 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
       provider: "github",
       options: {
         redirectTo: `${location.origin}/api/auth/callback`,
-        // redirectTo: "http://localhost:3000/api/auth/callback",
       },
     });
     console.log("location>>>", location.origin);
@@ -67,7 +70,7 @@ export default function AuthButtonClient({session}: {session: Session | null}) {
     </Button>
   ) : (
     <Button
-      className="fixed right-2 top-16 z-20 md:bottom-14 md:left-10 my-6 w-28"
+      className="mt-20 right-2 top-16 z-20 md:relative md:self-center absolute my-6 w-28"
       onClick={handleSignIn}
     >
       Sign in
