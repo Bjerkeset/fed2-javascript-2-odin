@@ -1,19 +1,15 @@
-// Import your necessary server libraries
 import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
+import {create} from "domain";
+import {cookies} from "next/headers";
 import AuthButtonClient from "./AuthButtonClient";
 
-// Define a server action to handle cookie operations
-export async function serverAction(context: {cookies: any}): Promise<any> {
-  const {cookies} = context;
+export const dynamic = "force-dynamic";
+
+export default async function AuthButtonServer() {
   const supabase = createServerComponentClient({cookies});
   const {
     data: {session},
   } = await supabase.auth.getSession();
-  return session;
-}
 
-// Update your AuthButtonServer component to use the server action
-export default async function AuthButtonServer(context: {cookies: any}) {
-  const session = await serverAction(context);
   return <AuthButtonClient session={session} />;
 }
