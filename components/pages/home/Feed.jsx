@@ -1,4 +1,7 @@
 "use client";
+
+import React, { useEffect, useState } from "react";
+import { fetchAllPostsWithProfiles, fetchCurrentUser } from "@/lib/db/index";
 import React, {useEffect, useState} from "react";
 import {fetchAllPostsWithProfiles, fetchCurrentUser} from "@/lib/db/index";
 import Post from "@/components/shared/cards/Post";
@@ -15,9 +18,7 @@ export default function Feed({profileId, currentUserId}) {
   const [error, setError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const {refreshKey} = useContext(RefreshContext);
-
-  useEffect(() => {
+  const [oldestToNewest, setOldestToNewest] = useState(false);
     (async () => {
       try {
         const post = await fetchAllPostsWithProfiles();
@@ -39,6 +40,10 @@ export default function Feed({profileId, currentUserId}) {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+  };
+
+  const toggleSortOrder = () => {
+    setOldestToNewest(!oldestToNewest);
   };
 
   if (isLoading) {
@@ -87,7 +92,13 @@ export default function Feed({profileId, currentUserId}) {
 
   const filteredPosts = getFilteredPosts();
 
-  const searchResults = filteredPosts.filter((post) => {
+  const sortedPosts = oldestToNewest
+    ? [...filteredPosts].sort(
+        (a, b) => new Date(a.created_at) - new Date(b.created_at)
+      )
+    : filteredPosts;
+
+  const searchResults = sortedPosts.filter((post) => {
     const contentMatch = (post.content || "")
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
@@ -98,14 +109,49 @@ export default function Feed({profileId, currentUserId}) {
   });
 
   return (
-    <article className="flex flex-col gap-2 w-full p-3 ">
-      <input
-        type="text"
-        placeholder="Search posts or authors..."
-        onChange={handleSearch}
-        value={searchTerm}
-        className="w-full p-2 py-2 px-4 rounded-full border border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400"
-      />
+    <article className="flex flex-col gap-2 w-full p-3">
+      <div className="flex items-center justify-between">
+        <input
+          type="text"
+          placeholder="Search posts or authors..."
+          onChange={handleSearch}
+          value={searchTerm}
+          className="w-full p-2 py-2 px-4 rounded-full border border-gray-300 shadow-md focus:ring-2 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400"
+        />
+      </div>
+      <div className="flex items-center m-2">
+        <input
+          type="checkbox"
+          id="oldestToNewestCheckbox"
+          className="hidden"
+          checked={oldestToNewest}
+          onChange={toggleSortOrder}
+        />
+        <label
+          htmlFor="oldestToNewestCheckbox"
+          className="flex items-center cursor-pointer"
+        >
+          <span className="mr-2">Oldest to Newest Posts</span>
+          <div className="w-6 h-6 border border-gray-300 rounded-full flex items-center justify-center">
+            {oldestToNewest && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-4 h-4 text-green-500"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            )}
+          </div>
+        </label>
+      </div>
       {searchResults.map((post) => (
         <Dialog key={post.id}>
           <DialogTrigger>
