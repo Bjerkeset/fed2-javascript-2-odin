@@ -10,13 +10,11 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -52,14 +50,9 @@ export default function UpdatePost({postId, currentContent}: UpdatePostProps) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-
     try {
       const updatedPost = await updateMatchingRows(postId, values.post);
       if (updatedPost) {
-        // Handle successful update (e.g., show a success toast).
-      } else {
-        // Handle unsuccessful update (e.g., show an error toast).
       }
     } catch {
       console.error("Error updating post");

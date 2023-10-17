@@ -42,10 +42,7 @@ export default function Page() {
   if (isError) {
     return (
       <div>
-        <span>
-          Error: There was a problem with the fetch operation:{" "}
-          {isError?.message}
-        </span>
+        <span>{isError?.message}</span>
       </div>
     );
   }
@@ -60,7 +57,6 @@ export default function Page() {
             <div>
               <p>Name: {getCurrentUser.identities[0].identity_data.name}</p>
               <p>Email: {getCurrentUser.email}</p>
-              {/* Add more user data as needed */}
             </div>
           )}
         </div>

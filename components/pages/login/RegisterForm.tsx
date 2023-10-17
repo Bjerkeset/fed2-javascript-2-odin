@@ -50,8 +50,6 @@ export default function RegisterForm() {
     },
   });
 
-  //   console.log(form.watch());
-
   async function onSubmit(data: Input) {
     if (data.comfirmPassword !== data.password) {
       toast({

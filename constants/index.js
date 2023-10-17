@@ -1,6 +1,6 @@
 // My List
-import {DashboardIcon, HomeIcon} from "@radix-ui/react-icons";
-import {FilePlus2, LayoutDashboard, PlaneLanding, User} from "lucide-react";
+import {HomeIcon} from "@radix-ui/react-icons";
+import {User} from "lucide-react";
 
 export const sidebarLinks = [
   {
@@ -8,30 +8,12 @@ export const sidebarLinks = [
     route: "/",
     label: "Feed",
   },
-  // {
-  //   Component: LayoutDashboard,
-  //   route: "/test",
-  //   label: "People",
-  // },
-  // {
-  //   Component: FilePlus2,
-  //   route: "/test",
-  //   label: "Create Post",
-  // },
   {
     Component: User,
     route: "/profile/1",
     label: "Profile",
   },
 ];
-
-// export const logoutButton = [
-//   {
-//     Component: PlaneLanding,
-//     route: "/",
-//     label: "Logout",
-//   },
-// ];
 
 export const profileTabs = [
   {value: "threads", label: "Threads", icon: "/assets/reply.svg"},

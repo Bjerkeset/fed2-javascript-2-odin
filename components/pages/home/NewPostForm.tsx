@@ -53,7 +53,6 @@ export default function NewPostForm() {
         );
         setContent(postedContent);
       } else {
-        console.log("No profile found");
       }
     } catch (error) {
       console.error("Error:", error);
