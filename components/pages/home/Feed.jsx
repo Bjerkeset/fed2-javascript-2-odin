@@ -1,25 +1,26 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { fetchAllPostsWithProfiles, fetchCurrentUser } from "@/lib/db/index";
-import React, {useEffect, useState} from "react";
-import {fetchAllPostsWithProfiles, fetchCurrentUser} from "@/lib/db/index";
 import Post from "@/components/shared/cards/Post";
 import SkeletonUi from "../profile/skeletonUi";
-import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
-import {useToast} from "@/components/ui/use-toast";
-import {RefreshContext} from "@/lib/RefreshContext";
-import {useContext} from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
+import { RefreshContext } from "@/lib/RefreshContext";
+import { useContext } from "react";
 
-export default function Feed({profileId, currentUserId}) {
-  const {toast} = useToast();
+export default function Feed({ profileId, currentUserId }) {
+  const { toast } = useToast();
   const [posts, setPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [oldestToNewest, setOldestToNewest] = useState(false);
-    (async () => {
+
+  const { refreshKey } = useContext(RefreshContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
       try {
         const post = await fetchAllPostsWithProfiles();
         setPosts(post.reverse());
@@ -35,15 +36,17 @@ export default function Feed({profileId, currentUserId}) {
       } finally {
         setIsLoading(false);
       }
-    })();
-  }, [refreshKey]);
+    };
+
+    fetchData();
+  }, [refreshKey, toast]);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const toggleSortOrder = () => {
-    setOldestToNewest(!oldestToNewest);
+  const handleSort = (e) => {
+    setOldestToNewest(e.target.value === "oldest");
   };
 
   if (isLoading) {
@@ -60,7 +63,7 @@ export default function Feed({profileId, currentUserId}) {
   if (error) {
     return (
       <div className="w-full">
-        <span className="flex items-center md: justify-center border-red-600  border-2 rounded h-[100px] mt-[100px] text-xl text-red-600 text-center p-2">
+        <span className="flex items-center justify-center border-red-600 border-2 rounded h-[100px] mt-[100px] text-xl text-red-600 text-center p-2">
           Error: Failed to fetch posts. Please refresh the page and try again.
           {error?.message}
         </span>
@@ -71,7 +74,7 @@ export default function Feed({profileId, currentUserId}) {
   if (!posts || !currentUser) {
     return (
       <div className="flex flex-wrap justify-center items-center gap-6 mt-6">
-        <span className=" flex w-full justify-center items-center border-2 h-[100px]  text-md text-center p-2">
+        <span className="flex w-full justify-center items-center border-2 h-[100px] text-md text-center p-2">
           Please Sign in / Register to make or view a post
         </span>
         <SkeletonUi />
@@ -120,37 +123,17 @@ export default function Feed({profileId, currentUserId}) {
         />
       </div>
       <div className="flex items-center m-2">
-        <input
-          type="checkbox"
-          id="oldestToNewestCheckbox"
-          className="hidden"
-          checked={oldestToNewest}
-          onChange={toggleSortOrder}
-        />
-        <label
-          htmlFor="oldestToNewestCheckbox"
-          className="flex items-center cursor-pointer"
-        >
-          <span className="mr-2">Oldest to Newest Posts</span>
-          <div className="w-6 h-6 border border-gray-300 rounded-full flex items-center justify-center">
-            {oldestToNewest && (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-4 h-4 text-green-500"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            )}
-          </div>
+        <label htmlFor="sortSelect" className="text-foreground">
+          Sort By:
         </label>
+        <select
+          id="sortSelect"
+          onChange={handleSort}
+          value={oldestToNewest ? "oldest" : "newest"}
+        >
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+        </select>
       </div>
       {searchResults.map((post) => (
         <Dialog key={post.id}>
