@@ -11,10 +11,25 @@ import {
 } from "@/components/ui/alert-dialog";
 import {Trash2} from "lucide-react";
 import {deleteMatchingRows} from "@/lib/db/index";
+import {RefreshContext} from "@/lib/RefreshContext";
+import {useContext} from "react";
+import {useToast} from "@/components/ui/use-toast";
 
 export default function DeletePost({postId}) {
+  const {setRefreshKey} = useContext(RefreshContext);
+  const {toast} = useToast();
   const handleDelete = async () => {
-    await deleteMatchingRows(postId);
+    try {
+      await deleteMatchingRows(postId);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setRefreshKey((prevKey) => prevKey + 1);
+      toast({
+        title: "success",
+        description: "Post deleted successfully",
+      });
+    }
   };
 
   return (

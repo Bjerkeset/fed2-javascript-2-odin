@@ -22,8 +22,6 @@ function Topbar() {
       {/* Left side logo*/}
       <Link href="/" className="flex items-center gap-4">
         <Image src="/favicon.ico" alt="logo" width={80} height={80} />
-        
-        <p className="text-heading3-bold text-primary max-xs:hidden">Swetter</p>
       </Link>
       {/* Right side links and Mode Toggle */}
       <div className="flex items-center gap-1">

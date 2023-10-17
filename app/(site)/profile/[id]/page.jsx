@@ -1,10 +1,18 @@
 "use client";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import TestProfileComponent from "@/components/pages/profile/TestProfileComponent";
 import SkeletonUi from "../../../../components/pages/profile/skeletonUi";
-import { fetchCurrentUser } from "@/lib/db";
+import {fetchCurrentUser} from "@/lib/db";
+import {useContext} from "react";
+import {
+  RefreshProvider,
+  refreshKey,
+  RefreshContext,
+} from "@/lib/RefreshContext";
 
 export default function Page() {
+  const {refreshKey, setRefreshKey} = useContext(RefreshContext);
+
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [getCurrentUser, setGetCurrentUser] = useState(); // Changed the initial state to an empty array
@@ -34,29 +42,25 @@ export default function Page() {
   if (isError) {
     return (
       <div>
-        <span>
-          Error: There was a problem with the fetch operation:{" "}
-          {isError?.message}
-        </span>
+        <span>{isError?.message}</span>
       </div>
     );
   }
 
   return (
     <>
-      <div>
-        <TestProfileComponent />
-        <h1>Profile Page</h1>
-        {getCurrentUser && (
-          <div>
-            <p>Name: {getCurrentUser.identities[0].identity_data.name}</p>
-            <p>Email: {getCurrentUser.email}</p>
-            {/* Add more user data as needed */}
-          </div>
-        )}
-
-
-      </div>
+      <RefreshProvider>
+        <div>
+          <TestProfileComponent />
+          <h1>Profile Page</h1>
+          {getCurrentUser && (
+            <div>
+              <p>Name: {getCurrentUser.identities[0].identity_data.name}</p>
+              <p>Email: {getCurrentUser.email}</p>
+            </div>
+          )}
+        </div>
+      </RefreshProvider>
     </>
   );
 }
