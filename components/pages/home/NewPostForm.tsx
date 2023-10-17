@@ -15,9 +15,11 @@ import {Input} from "@/components/ui/input";
 import {Card, CardContent} from "@/components/ui/card";
 import {Textarea} from "@/components/ui/textarea";
 import {onSubmit} from "@/constants/submitHandler";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {fetchCurrentUser, insertNewPostInDB} from "@/lib/db";
 import {useForm} from "react-hook-form";
+import {useRouter} from "next/navigation";
+import {RefreshContext} from "@/lib/RefreshContext";
 
 const formSchema = z.object({
   post: z.string().min(2, {
@@ -26,8 +28,10 @@ const formSchema = z.object({
 });
 
 export default function NewPostForm() {
+  const router = useRouter();
   const [profile, setProfile] = useState<any | null>(null);
   const [content, setContent] = useState<any | null>(null);
+  const {setRefreshKey} = useContext(RefreshContext);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,10 +53,11 @@ export default function NewPostForm() {
         );
         setContent(postedContent);
       } else {
-        console.log("No profile found");
       }
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setRefreshKey((prevKey: number) => prevKey + 1);
     }
   }
 

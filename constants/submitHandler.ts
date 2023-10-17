@@ -12,6 +12,5 @@ const formSchema = z.object({
 });
 
 export async function onSubmit(values: z.infer<typeof formSchema>) {
-  console.log(values);
   const supabase = createServerActionClient({cookies});
 }
